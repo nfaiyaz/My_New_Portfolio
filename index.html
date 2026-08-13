@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faiyaz Noor — Full-Stack Developer &amp; AI Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5F4;
+    --paper-raised:#FFFFFF;
+    --ink:#12181D;
+    --ink-soft:#4E5960;
+    --ink-faint:#899298;
+    --line:#D9DEE0;
+    --line-soft:#E7EAEB;
+    --amber:#DB8A2B;
+    --amber-soft:#F4E1C4;
+    --teal:#1E7A6C;
+    --teal-soft:#D7E9E4;
+    --blue:#3A6EA5;
+    --blue-soft:#DCE6EF;
+    --dot:#C8CFD2;
+    --radius:14px;
+    --maxw:980px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size:22px 22px;
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber-soft); color:var(--ink); }
+  a{ color:inherit; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--amber);
+    flex:none;
+  }
+
+  h1,h2,h3{ font-family:'IBM Plex Sans Condensed', sans-serif; font-weight:700; margin:0; letter-spacing:-.01em; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV : workflow node-path ---------- */
+  header.topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,245,244,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .navbar{
+    max-width:var(--maxw); margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15px;
+    display:flex; align-items:center; gap:9px; white-space:nowrap;
+  }
+  .brand .node{
+    width:11px; height:11px; border-radius:3px;
+    background:var(--amber);
+    box-shadow:0 0 0 3px var(--amber-soft);
+    transform:rotate(45deg);
+  }
+  .node-path{
+    display:flex; align-items:center;
+    list-style:none; margin:0; padding:0;
+    position:relative;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .node-path::-webkit-scrollbar{ display:none; }
+  .node-path li{ display:flex; align-items:center; }
+  .node-path .connector{
+    width:20px; height:1px; background:var(--line);
+    flex:none;
+  }
+  .node-path a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:var(--paper-raised);
+    white-space:nowrap;
+    transition:all .15s ease;
+  }
+  .node-path a:hover, .node-path a.active{
+    color:var(--ink);
+    border-color:var(--amber);
+    background:var(--amber-soft);
+  }
+
+  section{ padding:76px 0; border-bottom:1px solid var(--line-soft); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-top:64px; padding-bottom:64px; }
+  .hero-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap;
+  }
+  .hero h1{ font-size:clamp(38px,6vw,64px); line-height:.98; margin-top:14px; }
+  .hero h1 .accent{ color:var(--amber); }
+  .role-line{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px; color:var(--ink-soft);
+    margin-top:16px;
+    display:flex; flex-wrap:wrap; gap:10px 0;
+  }
+  .role-line span{ display:inline-flex; align-items:center; }
+  .role-line .sep{ margin:0 10px; color:var(--dot); }
+  .summary{
+    max-width:620px; margin-top:24px; color:var(--ink-soft); font-size:16.5px;
+  }
+  .hero-actions{
+    margin-top:30px; display:flex; gap:12px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    padding:11px 20px; border-radius:9px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ box-shadow:0 6px 0 var(--amber); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+  .btn-ghost:hover{ box-shadow:0 6px 0 var(--line); }
+
+  .location-pill{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint);
+    border:1px dashed var(--line); border-radius:20px; padding:6px 13px;
+    display:inline-flex; align-items:center; gap:7px; margin-top:22px;
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  .sec-head{ margin-bottom:38px; }
+  .sec-head h2{ font-size:clamp(26px,4vw,36px); margin-top:8px; }
+  .sec-num{ font-family:'IBM Plex Mono', monospace; color:var(--ink-faint); font-size:13px; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:16px;
+  }
+  .skill-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .skill-card.learning{ border-style:dashed; }
+  .skill-card h3{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .learning-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:none;
+    color:var(--teal); background:var(--teal-soft); border-radius:12px; padding:2px 9px;
+    letter-spacing:.02em;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:13px; padding:5px 12px; border-radius:8px;
+    background:var(--paper); border:1px solid var(--line-soft); color:var(--ink);
+  }
+
+  /* ---------- EXPERIENCE : node timeline ---------- */
+  .timeline{ position:relative; padding-left:34px; }
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:repeating-linear-gradient(to bottom, var(--line) 0 6px, transparent 6px 11px);
+  }
+  .tl-item{ position:relative; margin-bottom:44px; }
+  .tl-item:last-child{ margin-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-34px; top:4px;
+    width:13px; height:13px; border-radius:50%;
+    background:var(--paper-raised); border:2px solid var(--amber);
+  }
+  .tl-head{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  .tl-head h3{ font-size:20px; }
+  .tl-dates{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-faint); }
+  .tl-org{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--blue); margin-top:3px; }
+  .tl-item ul{ margin:14px 0 0; padding-left:18px; color:var(--ink-soft); }
+  .tl-item li{ margin-bottom:5px; }
+  .tl-tags{ margin-top:14px; }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-block{ margin-bottom:44px; }
+  .proj-block:last-child{ margin-bottom:0; }
+  .proj-block > .eyebrow{ margin-bottom:18px; }
+  .proj-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:16px;
+  }
+  .proj-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; display:flex; flex-direction:column; position:relative; overflow:hidden;
+  }
+  .proj-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background:var(--amber);
+  }
+  .proj-card.academic::before{ background:var(--blue); }
+  .proj-card .status{
+    position:absolute; top:16px; right:16px;
+    font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--teal);
+    background:var(--teal-soft); padding:2px 8px; border-radius:10px;
+  }
+  .proj-title{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .proj-title h3{ font-size:19px; }
+  .proj-link{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-decoration:none;
+    color:var(--ink-faint); border:1px solid var(--line); border-radius:7px; padding:3px 9px;
+    flex:none;
+  }
+  .proj-link:hover{ color:var(--ink); border-color:var(--ink); }
+  .proj-card ul{ margin:12px 0 0; padding-left:18px; color:var(--ink-soft); font-size:14.5px; flex:1; }
+  .proj-card li{ margin-bottom:5px; }
+  .proj-stack{ margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-faint); }
+
+  /* ---------- RESEARCH ---------- */
+  .research-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; position:relative;
+  }
+  .research-card::before{
+    content:""; position:absolute; top:0; left:0; bottom:0; width:3px; background:var(--teal);
+  }
+  .research-card h3{ font-size:21px; margin-bottom:4px; }
+  .research-card ul{ margin:14px 0 0; padding-left:18px; color:var(--ink-soft); }
+  .research-card li{ margin-bottom:6px; }
+  .research-stack{ margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-faint); }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-grid{ display:grid; gap:14px; }
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+    padding:18px 22px; background:var(--paper-raised); border:1px solid var(--line); border-radius:12px;
+  }
+  .edu-row .school{ font-weight:600; }
+  .edu-row .degree{ color:var(--ink-soft); font-size:14.5px; margin-top:2px; }
+  .edu-row .meta{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-faint); text-align:right; }
+
+  /* ---------- CERTS + ACHIEVEMENTS ---------- */
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  @media (max-width:720px){ .two-col{ grid-template-columns:1fr; } }
+  .list-plain{ list-style:none; margin:0; padding:0; }
+  .list-plain li{
+    padding:12px 0; border-bottom:1px solid var(--line-soft);
+    display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+  }
+  .list-plain li:last-child{ border-bottom:none; }
+  .list-plain .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-faint); flex:none;
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding:70px 0 50px; }
+  .contact-box{
+    background:var(--ink); color:var(--paper);
+    border-radius:20px; padding:48px 40px; position:relative; overflow:hidden;
+  }
+  .contact-box::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 85% 20%, rgba(219,138,43,.25), transparent 55%);
+    pointer-events:none;
+  }
+  .contact-box h2{ color:var(--paper); font-size:clamp(26px,4vw,36px); }
+  .contact-box p{ color:#B7BEC2; max-width:480px; margin-top:12px; }
+  .contact-links{ margin-top:28px; display:flex; flex-wrap:wrap; gap:12px; }
+  .contact-links a{
+    text-decoration:none; font-family:'IBM Plex Mono', monospace; font-size:13px;
+    padding:11px 18px; border-radius:9px; border:1px solid #3A4247; color:var(--paper);
+    display:inline-flex; align-items:center; gap:8px; transition:all .15s ease;
+  }
+  .contact-links a:hover{ border-color:var(--amber); background:rgba(219,138,43,.14); }
+  .foot-note{
+    margin-top:26px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-faint);
+    text-align:center;
+  }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @media (max-width:640px){
+    section{ padding:54px 0; }
+    .navbar{ padding:12px 18px; }
+    .wrap{ padding:0 18px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="navbar">
+    <div class="brand"><span class="node"></span>FAIYAZ.NOOR</div>
+    <ul class="node-path" id="nodePath">
+      <li><a href="#skills">skills</a></li>
+      <li class="connector"></li>
+      <li><a href="#experience">experience</a></li>
+      <li class="connector"></li>
+      <li><a href="#projects">projects</a></li>
+      <li class="connector"></li>
+      <li><a href="#research">research</a></li>
+      <li class="connector"></li>
+      <li><a href="#education">education</a></li>
+      <li class="connector"></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">available for opportunities</div>
+        <h1>Faiyaz Noor<br><span class="accent">builds</span> the pipes<br>behind the product.</h1>
+      </div>
+    </div>
+    <div class="role-line">
+      <span>Full-Stack Web Developer</span><span class="sep">·</span>
+      <span>AI Automation (n8n)</span><span class="sep">·</span>
+      <span>DevOps — Learning in public</span>
+    </div>
+    <p class="summary">Recent CSE graduate (AUST, 2025) working across the full stack — React/Next.js on the front, Node.js/Express and Python/FastAPI on the back, MongoDB/PostgreSQL/MS SQL underneath. Currently building AI agent workflows and RAG pipelines in n8n, and deliberately stacking up Linux, Docker, CI/CD and cloud fundamentals to grow into a DevOps role.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:noorfaiyaz317@gmail.com">Email me →</a>
+      <a class="btn btn-ghost" href="tel:+8801575435326">+880 1575435326</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/faiyaz-noor-002a15254/" data-placeholder="linkedin">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/nfaiyaz" data-placeholder="github">GitHub</a>
+    </div>
+    <div class="location-pill">📍 Dhaka, Bangladesh — open to on-site, remote &amp; relocation</div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head">
+      <div class="sec-num">01 / stack</div>
+      <h2>What I build with</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="chips">
+          <span class="chip">C</span><span class="chip">C++</span><span class="chip">Python</span>
+          <span class="chip">Java</span><span class="chip">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Frontend</h3>
+        <div class="chips">
+          <span class="chip">React.js</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span>
+          <span class="chip">Bootstrap</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
+        </div>
+      </div>
+      <div class="skill-card learning">
+        <h3>Backend <span class="learning-tag">in progress</span></h3>
+        <div class="chips">
+          <span class="chip">Node.js</span><span class="chip">Express.js</span>
+          <span class="chip">REST API Design</span><span class="chip">JWT Auth</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Database</h3>
+        <div class="chips">
+          <span class="chip">MongoDB</span><span class="chip">PostgreSQL</span><span class="chip">MS SQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools</h3>
+        <div class="chips">
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Postman</span>
+          <span class="chip">VS Code</span><span class="chip">npm</span><span class="chip">Docker</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Cloud</h3>
+        <div class="chips">
+          <span class="chip">AWS EC2</span><span class="chip">S3</span><span class="chip">IAM basics</span>
+        </div>
+      </div>
+      <div class="skill-card learning">
+        <h3>DevOps <span class="learning-tag">learning</span></h3>
+        <div class="chips">
+          <span class="chip">Linux Administration</span><span class="chip">Docker Compose</span>
+          <span class="chip">CI/CD — Jenkins</span><span class="chip">GitHub Actions</span>
+          <span class="chip">Bash Scripting</span><span class="chip">Terraform basics</span>
+          <span class="chip">Static Code Analysis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>AI Automation</h3>
+        <div class="chips">
+          <span class="chip">n8n</span><span class="chip">RAG Pipelines</span><span class="chip">Vector DBs</span>
+          <span class="chip">LLM APIs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-head">
+      <div class="sec-num">02 / experience</div>
+      <h2>Working experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>AI Automation Developer</h3>
+          <div class="tl-dates">May 18 2026 — Jul 23 2026</div>
+        </div>
+        <div class="tl-org">URUK BD TECH · On-site · Full-time</div>
+        <ul>
+          <li>Developed AI automation workflows on n8n, a low-code/no-code automation platform.</li>
+          <li>Built AI agents by integrating large language models through APIs.</li>
+          <li>Designed and implemented AI-powered business process automation solutions.</li>
+          <li>Developed Retrieval-Augmented Generation (RAG) systems backed by vector databases.</li>
+          <li>Created conversational AI assistants with both text and voice capability.</li>
+        </ul>
+        <div class="tl-tags chips">
+          <span class="chip">n8n</span><span class="chip">OpenRouter</span><span class="chip">Google Gemini</span>
+          <span class="chip">ElevenLabs</span><span class="chip">REST APIs</span><span class="chip">Vector DBs</span>
+          <span class="chip">RAG</span><span class="chip">Node.js</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>Full Stack Web Developer</h3>
+          <div class="tl-dates">Apr 25 2026 — May 29 2026</div>
+        </div>
+        <div class="tl-org">AI MSP 365 · Malaysian IT Services &amp; Consulting · Remote · Part-time</div>
+        <ul>
+          <li>Built and maintained responsive frontend interfaces with modern JavaScript frameworks.</li>
+          <li>Connected frontend applications to backend APIs and third-party services.</li>
+          <li>Implemented authentication, authorization and secure API communication.</li>
+          <li>Collaborated remotely with an international development team.</li>
+          <li>Improved application performance and UX through frontend optimization.</li>
+        </ul>
+        <div class="tl-tags chips">
+          <span class="chip">Node.js</span><span class="chip">REST API</span><span class="chip">Tailwind CSS</span>
+          <span class="chip">Git</span><span class="chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-head">
+      <div class="sec-num">03 / projects</div>
+      <h2>Things I've shipped</h2>
+    </div>
+
+    <div class="proj-block">
+      <div class="eyebrow">personal projects</div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-title">
+            <h3>Todo-List App</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/ToDo_App" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>Create, view and edit tasks — pending and completed shown separately.</li>
+            <li>Mark complete, delete permanently, and a status bar for total/pending/completed counts.</li>
+          </ul>
+          <div class="proj-stack">Python · FastAPI · React · PostgreSQL</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-title">
+            <h3>Kenakata</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/kenakata" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>Frontend for an online shopping platform.</li>
+            <li>Fully responsive across Android and web.</li>
+          </ul>
+          <div class="proj-stack">Next.js · Bootstrap · JavaScript</div>
+        </div>
+        <div class="proj-card">
+          <span class="status">ongoing</span>
+          <div class="proj-title">
+            <h3>Grocify</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/grocify-expo" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>React Native (Expo) Android app for an online grocery store.</li>
+            <li>Built as a hands-on learning project — still in active development.</li>
+          </ul>
+          <div class="proj-stack">React · Tailwind CSS · Expo Go</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-block">
+      <div class="eyebrow">academic projects</div>
+      <div class="proj-grid">
+        <div class="proj-card academic">
+          <div class="proj-title">
+            <h3>WorkHub</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/WorkHub" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>Project management app with Admin, Manager and Developer roles.</li>
+            <li>Task &amp; project management with file attachments, notifications, Kanban boards, Gantt charts, and role management.</li>
+          </ul>
+          <div class="proj-stack">ASP.NET MVC · MongoDB Atlas · HTML5 · JavaScript</div>
+        </div>
+        <div class="proj-card academic">
+          <div class="proj-title">
+            <h3>Weather-App</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/Weather-App" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>Desktop weather app with a multi-screen GUI built in FXML and styled with CSS.</li>
+            <li>JSON data handling for managing weather information.</li>
+          </ul>
+          <div class="proj-stack">Java · JavaFX</div>
+        </div>
+        <div class="proj-card academic">
+          <div class="proj-title">
+            <h3>ReadEasy</h3>
+            <a class="proj-link" href="https://github.com/nfaiyaz/ReadEasy" data-placeholder="github">GitHub ↗</a>
+          </div>
+          <ul>
+            <li>Android app to browse, download and read PDF documents.</li>
+            <li>Firebase for authentication, realtime database and storage.</li>
+          </ul>
+          <div class="proj-stack">Java · Firebase</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="sec-head">
+      <div class="sec-num">04 / research</div>
+      <h2>Thesis &amp; research</h2>
+    </div>
+    <div class="research-card">
+      <div class="eyebrow">undergraduate thesis</div>
+      <h3>Analyzing Illicit Transactions in Ethereum using Machine Learning Techniques</h3>
+      <ul>
+        <li>Built a hybrid ML-based fraud detection framework for Ethereum blockchain transactions using CTGAN, Random Forest, LightGBM, SGD and CO-FAIS.</li>
+        <li>Applied data preprocessing, feature engineering and BPSO-based feature selection to handle imbalanced blockchain datasets.</li>
+        <li>Focused on detecting phishing and scam-related transactions through anomaly detection and fuzzy logic.</li>
+      </ul>
+      <div class="research-stack">CTGAN · Random Forest · LightGBM · SGD · CO-FAIS · BPSO</div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="sec-head">
+      <div class="sec-num">05 / education</div>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-row">
+        <div>
+          <div class="school">Ahsanullah University of Science and Technology (AUST)</div>
+          <div class="degree">BSc in Computer Science and Engineering — CGPA 3.66</div>
+        </div>
+        <div class="meta">2021 – 2025<br>Dhaka, Bangladesh</div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="school">Dhaka College</div>
+          <div class="degree">Higher Secondary Certificate — GPA 5.00</div>
+        </div>
+        <div class="meta">Dhaka, Bangladesh</div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="school">Ideal School &amp; College</div>
+          <div class="degree">Secondary School Certificate — GPA 5.00</div>
+        </div>
+        <div class="meta">Dhaka, Bangladesh</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS + ACHIEVEMENTS -->
+  <section id="more">
+    <div class="sec-head">
+      <div class="sec-num">06 / credentials</div>
+      <h2>Certifications &amp; achievements</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">certifications</div>
+        <ul class="list-plain">
+          <li><span>Next.js with Tailwind CSS — Build a Frontend Ecommerce Project</span><span class="tag">Udemy</span></li>
+          <li><span>Git and GitHub MasterClass: Git Workflow, Commands</span><span class="tag">Udemy</span></li>
+          <li><span>AskM3 Certified AI Agent Development Internship Program</span><span class="tag">Remote · Internship</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">achievements</div>
+        <ul class="list-plain">
+          <li><span>Solves algorithmic problems on Codeforces</span><span class="tag">Codeforces</span></li>
+          <li><span>Awarded SSC scholarship in the general grade</span><span class="tag">SSC</span></li>
+          <li><span>Competed in AUST programming contests, hosted by AUSTPIC</span><span class="tag">toph</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer id="contact">
+    <div class="contact-box">
+      <div class="eyebrow" style="color:#B7BEC2;">let's connect</div>
+      <h2>Have a role that fits?<br>Let's talk.</h2>
+      <p>Open to full-stack, AI automation and junior DevOps roles — on-site in Dhaka, remote, or relocation.</p>
+      <div class="contact-links">
+        <a href="mailto:noorfaiyaz317@gmail.com">✉ noorfaiyaz317@gmail.com</a>
+        <a href="tel:+8801575435326">☎ +880 1575435326</a>
+        <a href="https://www.linkedin.com/in/faiyaz-noor-002a15254/" data-placeholder="linkedin">in LinkedIn</a>
+        <a href="https://github.com/nfaiyaz" data-placeholder="github">⌥ GitHub</a>
+      </div>
+    </div>
+    <div class="foot-note">Faiyaz Noor — Dhaka, Bangladesh</div>
+  </footer>
+
+</main>
+
+<script>
+  // Smooth active-state on the node-path nav
+  const links = document.querySelectorAll('.node-path a');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  function setActive(){
+    let idx = 0;
+    const y = window.scrollY + 140;
+    sections.forEach((sec, i) => { if(sec && sec.offsetTop <= y) idx = i; });
+    links.forEach((l,i) => l.classList.toggle('active', i === idx));
+  }
+  window.addEventListener('scroll', setActive, { passive:true });
+  setActive();
+
+  // Reveal-on-scroll for cards
+  const revealTargets = document.querySelectorAll('.skill-card, .tl-item, .proj-card, .research-card, .edu-row');
+  revealTargets.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.12 });
+  revealTargets.forEach(el => io.observe(el));
+
+  // Friendly console note for placeholder links
+  document.querySelectorAll('[data-placeholder]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      if(a.getAttribute('href') === '#'){
+        e.preventDefault();
+        console.log('Replace this placeholder href with your real ' + a.dataset.placeholder + ' URL.');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
